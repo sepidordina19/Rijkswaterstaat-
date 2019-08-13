@@ -1,0 +1,20 @@
+!pip3 install https://github.com/OlafenwaMoses/ImageAI/releases/download/2.0.3/imageai-2.0.3-py3-none-any.whl
+
+!wget https://github.com/OlafenwaMoses/ImageAI/releases/download/1.0/yolo.h5
+
+!wget https://github.com/sepidordina19/Rijkswaterstaat-/raw/master/Rijkswaterstaat%20Verkeersinfo%20-%20Files%2C%20nieuws%20en%20meer%20over%20de%20snelweg.mp4
+
+from imageai.Detection import VideoObjectDetection
+import os
+
+execution_path = os.getcwd()
+
+detector = VideoObjectDetection()
+detector.setModelTypeAsYOLOv3()
+detector.setModelPath( os.path.join(execution_path , "yolo.h5"))
+detector.loadModel()
+detector.detection_speed = 'fastest'
+video_path = detector.detectObjectsFromVideo(input_file_path=os.path.join( execution_path, "Rijkswaterstaat Verkeersinfo - Files, nieuws en meer over de snelweg.mp4"),
+                                output_file_path=os.path.join(execution_path, "traffic")
+                                , frames_per_second=1, log_progress=True)
+print(video_path)
